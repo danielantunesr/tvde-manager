@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TVDE Manager — Gestão de condutores TVDE em Portugal</title>
+  <meta name="description" content="A plataforma mais acessível para gerir condutores TVDE em Portugal. Importa CSVs do Uber e Bolt, calcula pagamentos semanais e notifica os condutores automaticamente." />
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-readable description" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "TVDE Manager",
+        "description": "Plataforma SaaS para gestão de condutores TVDE em Portugal. Importa CSVs do Uber e Bolt, calcula liquidações semanais por condutor e envia notificações automáticas via WhatsApp.",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "4.00",
+          "priceCurrency": "EUR",
+          "priceSpecification": {
+            "@type": "UnitPriceSpecification",
+            "price": "4.00",
+            "priceCurrency": "EUR",
+            "referenceQuantity": { "@type": "QuantitativeValue", "value": "1", "unitText": "condutor/semana" }
+          }
+        },
+        "availableOnDevice": "Desktop, Mobile",
+        "inLanguage": "pt-PT",
+        "areaServed": { "@type": "Country", "name": "Portugal" },
+        "url": "https://tvdemanager.pt"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "O TVDE Manager funciona com Uber e Bolt?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Sim. O TVDE Manager importa os ficheiros CSV exportados pelo Uber Portugal e pelo Bolt Portugal e deteta automaticamente o formato de cada ficheiro." }
+          },
+          {
+            "@type": "Question",
+            "name": "Quanto custa o TVDE Manager?",
+            "acceptedAnswer": { "@type": "Answer", "text": "4 euros por condutor por semana, aproximadamente 16 euros por condutor por mês. Só pagas pelos condutores ativos. Sem taxas de instalação nem contratos." }
+          },
+          {
+            "@type": "Question",
+            "name": "Como é que o condutor recebe o valor semanal?",
+            "acceptedAnswer": { "@type": "Answer", "text": "O condutor recebe uma mensagem no WhatsApp (ou SMS se não usar WhatsApp) com um resumo dos ganhos, deduções e o valor final. Responde com SIM para confirmar." }
+          },
+          {
+            "@type": "Question",
+            "name": "Preciso de instalar alguma coisa?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Não. O TVDE Manager é uma aplicação web que funciona em qualquer browser, no computador ou no telemóvel." }
+          },
+          {
+            "@type": "Question",
+            "name": "Funciona para um único condutor?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Sim. O mínimo é um condutor, a 4 euros por semana." }
+          },
+          {
+            "@type": "Question",
+            "name": "O que é TVDE?",
+            "acceptedAnswer": { "@type": "Answer", "text": "TVDE significa Transporte de Veículos Descaracterizados a partir de Plataforma Eletrónica. É o regime jurídico português que regula serviços de transporte por plataformas como Uber e Bolt, supervisionado pelo IMT." }
+          },
+          {
+            "@type": "Question",
+            "name": "Posso importar custos de combustível e portagens?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Sim. Podes importar custos de combustível e outros custos operacionais via CSV. O sistema deduz automaticamente esses valores na liquidação semanal de cada condutor." }
+          }
+        ]
+      }
+    ]
+  }
+
+    // ── FAQ TOGGLE ──
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --amber: #F5A623;
+      --amber-dim: #c4831a;
+      --amber-glow: rgba(245,166,35,0.15);
+      --bg: #0D0D0D;
+      --surface: #161616;
+      --surface-2: #1E1E1E;
+      --border: rgba(255,255,255,0.08);
+      --text: #F0EDE8;
+      --muted: #7A7570;
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'Lora', serif;
+      --font-mono: 'DM Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.6;
+    }
+
+    /* ── GRID BACKGROUND ── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(245,166,35,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245,166,35,0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    * { position: relative; z-index: 1; }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13,13,13,0.85);
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .logo span { color: var(--amber); }
+
+    .nav-pill {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      background: var(--amber-glow);
+      border: 1px solid rgba(245,166,35,0.3);
+      color: var(--amber);
+      padding: 0.3rem 0.8rem;
+      border-radius: 100px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 92vh;
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: center;
+      padding: 5rem 2rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--amber);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 1px;
+      background: var(--amber);
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      max-width: 820px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.1s forwards;
+    }
+
+    h1 em {
+      font-style: italic;
+      font-family: var(--font-body);
+      font-weight: 400;
+      color: var(--amber);
+    }
+
+    .hero-sub {
+      margin-top: 1.8rem;
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 540px;
+      line-height: 1.7;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.2s forwards;
+    }
+
+    /* ── SIGNUP FORM ── */
+    .signup-block {
+      margin-top: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.3s forwards;
+    }
+
+    .signup-row {
+      display: flex;
+      gap: 0;
+      max-width: 460px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--surface);
+      transition: border-color 0.2s;
+    }
+
+    .signup-row:focus-within {
+      border-color: var(--amber);
+      box-shadow: 0 0 0 3px var(--amber-glow);
+    }
+
+    .signup-row input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 0.9rem 1.1rem;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+    }
+
+    .signup-row input::placeholder { color: var(--muted); }
+
+    .signup-row button {
+      background: var(--amber);
+      color: #000;
+      border: none;
+      padding: 0.9rem 1.4rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      white-space: nowrap;
+    }
+
+    .signup-row button:hover { background: #e8951b; }
+    .signup-row button:active { transform: scale(0.97); }
+
+    .signup-note {
+      margin-top: 0.7rem;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    .success-msg {
+      display: none;
+      background: var(--amber-glow);
+      border: 1px solid rgba(245,166,35,0.4);
+      border-radius: 8px;
+      padding: 0.9rem 1.2rem;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--amber);
+      max-width: 460px;
+    }
+
+    /* ── STATS STRIP ── */
+    .stats-strip {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      padding: 1.8rem 2rem;
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.4s forwards;
+    }
+
+    .stat {
+      flex: 1;
+      min-width: 160px;
+      padding: 0 2rem;
+      border-right: 1px solid var(--border);
+    }
+
+    .stat:first-child { padding-left: 0; }
+    .stat:last-child { border-right: none; }
+
+    .stat-value {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 2rem;
+      color: var(--amber);
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 0.3rem;
+    }
+
+    /* ── SECTION ── */
+    section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 6rem 2rem;
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--amber);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      color: var(--text);
+      max-width: 600px;
+    }
+
+    h2 em {
+      font-style: italic;
+      font-family: var(--font-body);
+      font-weight: 400;
+      color: var(--amber);
+    }
+
+    /* ── PROBLEM SECTION ── */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1px;
+      margin-top: 3rem;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .problem-card {
+      background: var(--surface);
+      padding: 2rem;
+      transition: background 0.2s;
+    }
+
+    .problem-card:hover { background: var(--surface-2); }
+
+    .problem-icon {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .problem-card h3 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .problem-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .steps {
+      margin-top: 3.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+    }
+
+    .step {
+      position: relative;
+    }
+
+    .step-num {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 3.5rem;
+      color: rgba(245,166,35,0.12);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      margin-bottom: 0.5rem;
+    }
+
+    .step h3 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+
+    .step p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .step-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      background: var(--amber-glow);
+      color: var(--amber);
+      border: 1px solid rgba(245,166,35,0.25);
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+
+    /* ── WHATSAPP MOCKUP ── */
+    .notification-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 4rem 2rem;
+      margin-top: 5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    @media (max-width: 680px) {
+      .notification-section { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    .phone-mockup {
+      background: #1a1a1a;
+      border-radius: 28px;
+      border: 2px solid #2a2a2a;
+      padding: 1.5rem 1rem;
+      max-width: 300px;
+      margin: 0 auto;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+    }
+
+    .phone-header {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .phone-avatar {
+      width: 36px;
+      height: 36px;
+      background: var(--amber);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    .phone-contact {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .phone-status {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: #4CAF50;
+    }
+
+    .bubble {
+      background: #2a2a2a;
+      border-radius: 4px 14px 14px 14px;
+      padding: 0.9rem 1rem;
+      font-size: 0.78rem;
+      line-height: 1.6;
+      color: #ddd;
+      margin-bottom: 0.8rem;
+    }
+
+    .bubble strong { color: var(--amber); }
+
+    .bubble-reply {
+      background: rgba(245,166,35,0.15);
+      border: 1px solid rgba(245,166,35,0.3);
+      border-radius: 14px 4px 14px 14px;
+      padding: 0.6rem 0.9rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.82rem;
+      color: var(--amber);
+      text-align: right;
+      margin-left: 30%;
+      margin-top: 0.5rem;
+    }
+
+    .bubble-time {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: var(--muted);
+      text-align: right;
+      margin-top: 0.3rem;
+    }
+
+    /* ── PRICING ── */
+    .pricing-section { text-align: center; }
+
+    .pricing-card {
+      display: inline-block;
+      background: var(--surface);
+      border: 1px solid rgba(245,166,35,0.4);
+      border-radius: 16px;
+      padding: 3rem 4rem;
+      margin-top: 3rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 60px rgba(245,166,35,0.08);
+    }
+
+    .pricing-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--amber), transparent);
+    }
+
+    .price-amount {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 5rem;
+      letter-spacing: -0.04em;
+      color: var(--amber);
+      line-height: 1;
+    }
+
+    .price-period {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      margin-top: 0.4rem;
+      text-transform: uppercase;
+    }
+
+    .price-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--border);
+      margin: 1.5rem auto;
+    }
+
+    .price-features {
+      list-style: none;
+      text-align: left;
+      display: inline-block;
+    }
+
+    .price-features li {
+      font-size: 0.9rem;
+      color: var(--muted);
+      padding: 0.3rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .price-features li::before {
+      content: '→';
+      color: var(--amber);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+    }
+
+    .pricing-note {
+      margin-top: 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    /* ── FINAL CTA ── */
+    .cta-section {
+      text-align: center;
+      padding: 7rem 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .cta-section h2 { max-width: 100%; margin: 0 auto 0.5rem; }
+
+    .cta-sub {
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    footer .logo { font-size: 0.9rem; }
+
+    .footer-note {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── COUNTER ── */
+    .waitlist-count {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 1rem;
+    }
+
+    .waitlist-dot {
+      width: 6px;
+      height: 6px;
+      background: #4CAF50;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      nav { padding: 1rem; }
+      .hero { padding: 3rem 1rem 3rem; min-height: auto; }
+      section { padding: 4rem 1rem; }
+      .stats-strip { padding: 1.5rem 1rem; }
+      .stat { min-width: 130px; padding: 0 1rem; }
+      .pricing-card { padding: 2rem 1.5rem; }
+      .cta-section { padding: 4rem 1rem; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* ── FAQ ── */
+    .faq-section { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+    .faq-list { margin-top: 3rem; max-width: 720px; }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .faq-item:last-child { border-bottom: none; }
+
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      text-align: left;
+      padding: 1.3rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      cursor: pointer;
+      color: var(--text);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: -0.01em;
+    }
+
+    .faq-q:hover { color: var(--amber); }
+
+    .faq-icon {
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      color: var(--amber);
+      flex-shrink: 0;
+      transition: transform 0.25s ease;
+      line-height: 1;
+    }
+
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+      padding: 0;
+    }
+
+    .faq-item.open .faq-a {
+      max-height: 200px;
+      padding-bottom: 1.3rem;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="logo">TVDE<span>Manager</span></a>
+    <span class="nav-pill">Lista de espera aberta</span>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div>
+      <div class="hero-eyebrow">Para operadores TVDE em Portugal</div>
+      <h1>Acaba com as<br/><em>folhas de cálculo</em><br/>de uma vez.</h1>
+      <p class="hero-sub">
+        Importa os CSVs do Uber e Bolt, calcula automaticamente o que cada condutor recebe por semana, e envia a confirmação diretamente para o telemóvel dele.
+      </p>
+
+      <div class="signup-block">
+        <div class="signup-row" id="formRow">
+          <input type="email" id="emailInput" placeholder="O teu email de operador" autocomplete="email" />
+          <button onclick="handleSignup()">Entrar na lista →</button>
+        </div>
+        <div class="success-msg" id="successMsg">
+          ✓ Estás na lista. Vamos avisar-te quando abrirmos o acesso.
+        </div>
+        <p class="signup-note">Sem spam. Só avisamos quando abrirmos o acesso antecipado.</p>
+        <div class="waitlist-count">
+          <span class="waitlist-dot"></span>
+          <span id="countDisplay">Sê dos primeiros a entrar</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS STRIP -->
+  <div class="stats-strip">
+    <div class="stat">
+      <div class="stat-value">4€</div>
+      <div class="stat-label">por condutor / semana</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">&lt;5min</div>
+      <div class="stat-label">para fechar a semana</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">Uber + Bolt</div>
+      <div class="stat-label">plataformas suportadas</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">WhatsApp</div>
+      <div class="stat-label">confirmação automática</div>
+    </div>
+  </div>
+
+  <!-- PROBLEM -->
+  <section>
+    <div class="reveal">
+      <div class="section-label">O problema</div>
+      <h2>Gerir condutores TVDE<br/><em>é demasiado manual.</em></h2>
+    </div>
+    <div class="problem-grid reveal">
+      <div class="problem-card">
+        <span class="problem-icon">📂</span>
+        <h3>CSVs de múltiplas plataformas</h3>
+        <p>Uber, Bolt, e outras plataformas têm formatos diferentes. Reconciliar tudo à mão é lento e gera erros.</p>
+      </div>
+      <div class="problem-card">
+        <span class="problem-icon">🧮</span>
+        <h3>Cálculos manuais toda semana</h3>
+        <p>Ganhos, combustível, custos, valor acordado — cada semana a mesma folha de cálculo. Horas perdidas.</p>
+      </div>
+      <div class="problem-card">
+        <span class="problem-icon">📱</span>
+        <h3>Sem confirmação formal dos condutores</h3>
+        <p>Mandar o valor por mensagem e esperar resposta manual. Sem registo. Sem histórico. Sem proteção.</p>
+      </div>
+      <div class="problem-card">
+        <span class="problem-icon">📉</span>
+        <h3>Zero visibilidade sobre rentabilidade</h3>
+        <p>Sabes quanto cada condutor ganhou esta semana? E no último mês? Qual é o teu carro mais rentável?</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section style="border-top: 1px solid var(--border);">
+    <div class="reveal">
+      <div class="section-label">Como funciona</div>
+      <h2>Da importação à<br/><em>confirmação</em> em minutos.</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">01</div>
+        <div class="step-badge">Uma vez</div>
+        <h3>Carrega a lista de condutores</h3>
+        <p>Importa um CSV com os teus condutores — nome, telemóvel, matrícula, valor acordado semanal. Feito.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">02</div>
+        <div class="step-badge">Cada semana</div>
+        <h3>Importa os CSVs das plataformas</h3>
+        <p>Arrasta os ficheiros do Uber e Bolt. O sistema deteta o formato automaticamente e calcula tudo.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">03</div>
+        <div class="step-badge">Automático</div>
+        <h3>Revê e envia as notificações</h3>
+        <p>Vês um resumo de cada condutor. Com um clique, cada um recebe o valor no WhatsApp para confirmar.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">04</div>
+        <div class="step-badge">Arquivo</div>
+        <h3>Semana fechada, tudo registado</h3>
+        <p>O condutor responde "SIM". A semana fica marcada como liquidada. Histórico completo guardado.</p>
+      </div>
+    </div>
+
+    <!-- WHATSAPP MOCKUP -->
+    <div class="notification-section reveal">
+      <div>
+        <div class="section-label">Notificação automática</div>
+        <h2 style="font-size: 1.8rem;">O condutor recebe,<br/><em>confirma</em>, e está feito.</h2>
+        <p style="color: var(--muted); margin-top: 1rem; font-size: 0.95rem; max-width: 380px;">
+          Sem telefonemas. Sem mensagens manuais. O sistema envia o resumo semanal diretamente para o WhatsApp de cada condutor. Ele confirma com uma resposta.
+        </p>
+        <p style="color: var(--muted); margin-top: 0.8rem; font-size: 0.88rem; max-width: 380px;">
+          Tudo fica registado — mensagem enviada, resposta recebida, hora de confirmação.
+        </p>
+      </div>
+      <div class="phone-mockup">
+        <div class="phone-header">
+          <div class="phone-avatar">🚗</div>
+          <div>
+            <div class="phone-contact">TVDE Manager</div>
+            <div class="phone-status">● Online</div>
+          </div>
+        </div>
+        <div class="bubble">
+          Olá <strong>João</strong>, aqui está o teu resumo semanal:<br/><br/>
+          📅 Semana 07/04 a 13/04/2026<br/>
+          ✅ Ganhos: <strong>487,40€</strong><br/>
+          ⛽ Custos: <strong>-89,20€</strong><br/>
+          📋 Acordo: <strong>-280,00€</strong><br/><br/>
+          💰 <strong>TOTAL A RECEBER: 118,20€</strong><br/><br/>
+          Responde <strong>SIM</strong> para confirmar.
+          <div class="bubble-time">14:32 ✓✓</div>
+        </div>
+        <div class="bubble-reply">SIM ✓</div>
+        <div class="bubble-time" style="margin-top:0.3rem">14:35</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing-section" style="border-top: 1px solid var(--border);">
+    <div class="reveal">
+      <div class="section-label">Preço</div>
+      <h2 style="margin: 0 auto; text-align: center;">Simples. Sem surpresas.</h2>
+    </div>
+    <div class="pricing-card reveal">
+      <div class="price-amount">4€</div>
+      <div class="price-period">por condutor · por semana</div>
+      <div class="price-divider"></div>
+      <ul class="price-features">
+        <li>Importação de CSV (Uber, Bolt e outros)</li>
+        <li>Cálculo automático de liquidações semanais</li>
+        <li>Notificação via WhatsApp + SMS</li>
+        <li>Confirmação e aprovação do condutor</li>
+        <li>Histórico completo e exportação PDF</li>
+        <li>Gestão de custos (combustível, portagens, outros)</li>
+        <li>Suporte em português</li>
+      </ul>
+      <div class="pricing-note">
+        10 condutores = 40€/semana · ~160€/mês<br/>
+        Quanto tempo gastaste na última semana a fazer isto manualmente?
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="reveal">
+      <div class="section-label">Perguntas frequentes</div>
+      <h2>Tens dúvidas?<br/><em>Normal.</em></h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          O TVDE Manager funciona com Uber e Bolt?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Sim. Importamos os ficheiros CSV exportados pelo Uber Portugal e pelo Bolt Portugal. O sistema deteta o formato automaticamente — não precisas de configurar nada.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Quanto custa exatamente?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">4€ por condutor por semana — cerca de 16€/mês por condutor. Só pagas pelos condutores ativos. Sem taxas de instalação, sem contratos, sem surpresas.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Como é que o condutor recebe e confirma o valor?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">O condutor recebe uma mensagem no WhatsApp com o resumo semanal — ganhos, custos, valor acordado, e o total a receber. Ele responde "SIM" para confirmar. Se não usar WhatsApp, enviamos por SMS.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Preciso de instalar alguma aplicação?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Não. O TVDE Manager é uma aplicação web — funciona diretamente no browser, no computador ou no telemóvel. Os condutores também não precisam de instalar nada.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          E se um condutor recusar ou não responder?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Se o condutor não responder em 48 horas, a liquidação fica em estado "notificado" e decides o próximo passo. Se responder "NÃO", o sistema marca como disputado e notifica-te imediatamente.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Posso usar para um único condutor?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Sim. O mínimo é 1 condutor, a 4€/semana. Escala à medida que a tua frota cresce — sem tetos.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Os dados ficam seguros? E o RGPD?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Sim. Os dados ficam armazenados em servidores europeus. O sistema foi desenhado com RGPD em mente — os condutores dão consentimento para receber notificações e podem retirar esse consentimento a qualquer momento.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <div class="cta-section">
+    <div class="reveal">
+      <div class="section-label" style="margin-bottom:1.2rem">Acesso antecipado</div>
+      <h2>Começa a gerir melhor.<br/><em>A sério.</em></h2>
+      <p class="cta-sub">Entra na lista de espera. Quando abrirmos o acesso beta,<br/>vais ser dos primeiros a saber.</p>
+
+      <div style="display:flex; flex-direction:column; align-items:center;">
+        <div class="signup-row" id="formRow2" style="max-width:400px;">
+          <input type="email" id="emailInput2" placeholder="O teu email" autocomplete="email" />
+          <button onclick="handleSignup2()">Quero entrar →</button>
+        </div>
+        <div class="success-msg" id="successMsg2" style="margin-top:1rem; max-width:400px;"></div>
+        <p class="signup-note" style="margin-top:0.7rem;">Sem compromisso. Sem cartão de crédito.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="#" class="logo">TVDE<span>Manager</span></a>
+    <span class="footer-note">© 2026 TVDE Manager · Portugal · Em desenvolvimento</span>
+  </footer>
+
+  <script>
+    // ── SCROLL REVEAL ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ── WAITLIST LOCAL STORAGE ──
+    let count = parseInt(localStorage.getItem('tvde_waitlist_count') || '0');
+
+    function updateCountDisplay() {
+      const el = document.getElementById('countDisplay');
+      if (!el) return;
+      if (count === 0) {
+        el.textContent = 'Sê dos primeiros a entrar';
+      } else {
+        el.textContent = count + (count === 1 ? ' pessoa já na lista' : ' pessoas já na lista');
+      }
+    }
+
+    updateCountDisplay();
+
+    function handleSignup() {
+      const input = document.getElementById('emailInput');
+      const email = input.value.trim();
+      if (!email || !email.includes('@')) {
+        input.style.outline = '1px solid #e05';
+        setTimeout(() => input.style.outline = '', 1500);
+        return;
+      }
+      document.getElementById('formRow').style.display = 'none';
+      document.getElementById('successMsg').style.display = 'block';
+      count++;
+      localStorage.setItem('tvde_waitlist_count', count);
+      updateCountDisplay();
+    }
+
+    function handleSignup2() {
+      const input = document.getElementById('emailInput2');
+      const email = input.value.trim();
+      if (!email || !email.includes('@')) {
+        input.style.outline = '1px solid #e05';
+        setTimeout(() => input.style.outline = '', 1500);
+        return;
+      }
+      document.getElementById('formRow2').style.display = 'none';
+      const msg = document.getElementById('successMsg2');
+      msg.style.display = 'block';
+      msg.textContent = '✓ Estás na lista! Vamos avisar-te em breve.';
+      count++;
+      localStorage.setItem('tvde_waitlist_count', count);
+      updateCountDisplay();
+    }
+
+    // Allow Enter key on inputs
+    document.getElementById('emailInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter') handleSignup();
+    });
+    document.getElementById('emailInput2').addEventListener('keydown', e => {
+      if (e.key === 'Enter') handleSignup2();
+    });
+
+    // ── FAQ TOGGLE ──
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+
+  </script>
+</body>
+</html>
