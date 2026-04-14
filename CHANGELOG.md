@@ -13,8 +13,34 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Planned
 - Mapping of Uber PT and Bolt PT CSV formats (OQ-001, OQ-002)
-- Operator interview documentation (docs/interviews/)
 - Deployment of landing page to Vercel
+
+---
+
+## [0.11.0] — 2026-04-14
+
+### Added
+
+**Agent orchestration framework — decisions finalised**
+- `AGENTS.md` — Secção 8: adicionados três novos agentes de fase de validação: Validation Agent, Landing Agent, Growth Agent (este último activo apenas após sign-off de validação).
+- `AGENTS.md` — Secção 9: framework escolhido — Claude Code native Agent tool. Sessão principal = orchestrator; subagentes em background com isolamento por git worktree = domain agents. Sem pacotes extra.
+- `AGENTS.md` — Secção 10: todas as questões abertas AQ-001 a AQ-007 respondidas.
+
+**Waitlist email capture**
+- `tvde-manager/src/app/api/waitlist/route.ts` (novo) — API route Next.js que recebe POST `{ email }`, valida, e usa Resend para notificar Daniel por email a cada nova inscrição. Graciosa quando env vars estão ausentes (dev-friendly).
+- `tvde-manager/src/app/page.tsx` — função `signup` tornada async; faz POST a `/api/waitlist`. Fallback em localStorage mantido. Ambos os formulários (hero + CTA) funcionam.
+- `tvde-manager/package.json` — dependência `resend` adicionada.
+
+**Validation-phase documents**
+- `tvde-manager/public/llms.txt` — ficheiro de descoberta por IA (llms.txt standard), bilingue EN+PT.
+- `docs/interviews/template.md` — guia de entrevista a operadores TVDE com score de sinal de compra 1–5.
+- `docs/validation/reddit-posts.md` — 4 rascunhos de posts Reddit/Facebook em português prontos a copiar-colar, com instruções para Daniel.
+- `docs/validation/competitor-analysis.md` — análise competitiva pré-preenchida com 6 entradas e guia de pesquisa.
+
+### Decisions
+- Framework de orquestração: Claude Code native Agent tool (2026-04-14). Ver AGENTS.md Secção 9.
+- `llms.txt` em `tvde-manager/public/` para ser servido em `/llms.txt`. O ficheiro anterior `docs/llms.txt` é um rascunho obsoleto.
+- Resend como provider de email para waitlist: sandbox sender, tier gratuito 3000 emails/mês, compatível com Vercel.
 
 ---
 
