@@ -84,7 +84,7 @@ export default function LandingPage() {
     return () => observer.disconnect();
   }, []);
 
-  function signup(
+  async function signup(
     email: string,
     setSubmitted: (v: boolean) => void,
     setError: (v: boolean) => void
@@ -94,6 +94,21 @@ export default function LandingPage() {
       setTimeout(() => setError(false), 1500);
       return;
     }
+
+    try {
+      const res = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!res.ok) {
+        console.error("[waitlist] API returned non-ok status:", res.status);
+      }
+    } catch (err) {
+      console.error("[waitlist] Failed to reach API:", err);
+    }
+
     setSubmitted(true);
     setCount((prev) => {
       const next = prev + 1;
@@ -333,7 +348,7 @@ export default function LandingPage() {
             <li>Confirmação e aprovação do condutor</li>
             <li>Histórico completo e exportação PDF</li>
             <li>Gestão de custos (combustível, portagens, outros)</li>
-            <li>Suporte em português</li>
+            <li>Suporte em português e inglês</li>
           </ul>
           <div className="pricing-note">
             10 condutores = 40€/semana · ~160€/mês<br />

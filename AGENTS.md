@@ -304,15 +304,44 @@ Agents:
 
 ```
 Project: TVDE Manager
-Orchestration framework: TBD — owner researching
+Orchestration framework: Claude Code — native Agent tool (see Section 9)
 
 Agents:
-  Orchestrator:     TBD
-  Architect:        TBD
-  Spec:             TBD
-  Review:           TBD
+  Orchestrator:     Main Claude Code conversation session (Daniel + Claude)
+  Architect:        Background subagent (general-purpose), spawned when structural decisions needed
+  Spec:             Background subagent (general-purpose), owns docs/SPEC.md updates + CHANGELOG
+  Review:           Background subagent (general-purpose), sequential gate after domain agents
 
-  Domain agents:
+  Validation-phase agents (active now — before Section 19 P0 sign-off):
+
+  - Validation Agent:   Market validation tasks — NOT product code
+                        Files: docs/interviews/**
+                               docs/validation/**
+                               public/llms.txt
+                        Does NOT touch: src/app/** (product code), app/lib/**
+                        Outputs: drafted documents for Daniel to review and act on
+                        Note: Reddit posts are drafted by this agent, posted by Daniel.
+                              Interviews are templated by this agent, conducted by Daniel.
+
+  - Landing Agent:      Public-facing pages and waitlist infrastructure
+                        Files: src/app/page.tsx
+                               src/app/layout.tsx
+                               src/app/api/waitlist/**
+                               public/**
+                        Does NOT touch: src/app/(dashboard)/**, app/lib/**
+                        Note: Active during validation phase. After product launch,
+                              this agent is merged into Dashboard Agent scope.
+
+  - Growth Agent:       Distribution, discoverability, community presence
+                        Files: public/llms.txt (shared with Validation Agent during validation)
+                               docs/growth/**
+                               src/app/(marketing)/**  (future SEO pages)
+                        Does NOT touch: app/**, billing/**, settlement/**
+                        Note: Defined now, activated after validation sign-off.
+                              Validation Agent hands off to Growth Agent at product launch.
+
+  Product agents (blocked until Section 19 P0 sign-off):
+
   - CSV Agent:          CSV parsing, format detection, column mapping
                         Files: app/lib/csv/**, app/api/import/**
 
@@ -340,33 +369,56 @@ Agents:
 
 ## 9. Framework Choice
 
-> ⬜ **Owner is researching this independently. Fill in after decision.**
+> ✅ **Decided: 2026-04-12**
 
 ```
-Chosen framework:    _______________
-Why:                 _______________
-How agents are run:  _______________
-  (e.g. separate processes, threads, API calls, Claude Code sub-agents)
-State management:    _______________
-  (where is shared state stored between agents?)
-Visual UI:           _______________
-  (framework-native, custom dashboard, TUI)
-Reference repo:      _______________
+Chosen framework:    Claude Code — native Agent tool (no additional npm packages)
+
+Why:                 Claude Code can spawn isolated subagents in parallel using its
+                     built-in Agent tool with run_in_background: true and git worktree
+                     isolation. This requires zero infrastructure — no task queue DB,
+                     no orchestration server, no additional dependencies.
+                     The main Claude Code conversation IS the orchestrator.
+
+How agents are run:  Each domain agent = one background Agent call, spawned by the
+                     orchestrator (main session). Each agent gets its own git worktree
+                     (isolated repo copy on a new branch). Multiple agents run
+                     simultaneously when they own non-overlapping file globs.
+                     Agents that share files are run sequentially by the orchestrator.
+                     Blocker protocol: if blocked, agent returns:
+                       BLOCKED: [reason]
+                       NEEDS: [what is needed to unblock]
+                       FILES_MODIFIED: [list or "none"]
+
+State management:    Stateless between sessions. Shared truth lives in:
+                       docs/SPEC.md       — product spec (read-only for domain agents)
+                       AGENTS.md          — agent roles and file ownership
+                       CHANGELOG.md       — append-only decision log
+                     Intra-session state: agent output text is captured by the
+                     orchestrator and passed as input to the next dependent agent.
+
+Visual UI:           React artifact (Claude artifact) polling public/agent-status.json
+                     for v1. The orchestrator writes JSON status entries per agent;
+                     the artifact renders a live kanban board (Backlog / In Progress /
+                     Review / Done / Blocked). No separate web server needed —
+                     Next.js dev server serves public/ statically.
+
+Reference repo:      /Users/danielantunes/Documents/repositories/teste/tvde-manager
 ```
 
 ---
 
 ## 10. Open Questions
 
-| # | Question | Notes |
-|---|---|---|
-| AQ-001 | Which orchestration framework? | Owner researching — top candidates TBD |
-| AQ-002 | Web dashboard vs TUI for the visual interface? | Preference: visual cards on web |
-| AQ-003 | How are agent boundaries enforced technically? | By file glob? By module? By explicit declaration? |
-| AQ-004 | Parallel agent execution — is the framework capable? | Need framework-specific answer |
-| AQ-005 | How does an agent communicate a blocker to the orchestrator? | Structured output? Exception? Flag file? |
-| AQ-006 | Where is the task queue stored? | DB, file, in-memory? |
-| AQ-007 | Can the visual interface be a Claude artifact (React)? | Would avoid needing a separate tool for v1 |
+| # | Question | Answer | Decided |
+|---|---|---|---|
+| AQ-001 | Which orchestration framework? | Claude Code native Agent tool. Main session = orchestrator. Background Agent calls with worktrees = domain agents. | 2026-04-12 |
+| AQ-002 | Web dashboard vs TUI for the visual interface? | React artifact polling `public/agent-status.json`, served by Next.js dev server. No extra packages. | 2026-04-12 |
+| AQ-003 | How are agent boundaries enforced technically? | File glob declared in AGENTS.md Section 8. Each agent prompt includes its authorized glob. Review Agent diffs for out-of-scope files. | 2026-04-12 |
+| AQ-004 | Parallel agent execution — is the framework capable? | Yes. Single orchestrator message with multiple `run_in_background: true` Agent calls. Agents with non-overlapping file globs run simultaneously. | 2026-04-12 |
+| AQ-005 | How does an agent communicate a blocker to the orchestrator? | Returns text starting with `BLOCKED: [reason] / NEEDS: [what] / FILES_MODIFIED: [list or "none"]`. Orchestrator parses the first word. | 2026-04-12 |
+| AQ-006 | Where is the task queue stored? | Orchestrator's context window for v1. For v2: `tasks.json` in repo root, read at session start. | 2026-04-12 |
+| AQ-007 | Can the visual interface be a Claude artifact (React)? | Yes. React artifact polls `public/agent-status.json`. Orchestrator writes JSON; artifact renders kanban. No separate packages needed. | 2026-04-12 |
 
 ---
 
