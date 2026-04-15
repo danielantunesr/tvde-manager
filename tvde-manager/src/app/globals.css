@@ -1002,4 +1002,204 @@ footer {
   .cta-section { padding: 4rem 1rem; }
   footer { flex-direction: column; align-items: flex-start; }
   .platforms-strip { gap: 1.5rem; padding: 1rem; }
+
+  /* Guide pages — mobile */
+  .guide-container { padding: 0 1rem; }
+  .guide-list a { padding: 1rem 0; gap: 0.3rem; }
+}
+
+/* ─── Guide pages ─────────────────────────────────────────── */
+
+.guide-page {
+  min-height: 100vh;
+  padding: 2rem 0 5rem;
+}
+
+.guide-container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Breadcrumb */
+.guide-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.guide-breadcrumb a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.guide-breadcrumb a:hover {
+  color: var(--color-green-11);
+}
+
+/* Article typography */
+.guide-page h1 {
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--fg);
+  margin-bottom: 1.25rem;
+}
+
+.guide-page h2 {
+  font-size: 1.2rem;
+  font-weight: 650;
+  color: var(--fg);
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.guide-page h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--fg);
+  margin-bottom: 0.4rem;
+}
+
+.guide-page p {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--fg-secondary, var(--muted));
+  margin-bottom: 1rem;
+}
+
+.guide-page article section {
+  padding: 0;
+  border: none;
+  background: none;
+  margin-bottom: 0.5rem;
+}
+
+.guide-intro {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--muted);
+  margin-bottom: 2.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+/* FAQ */
+.guide-faq {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.guide-faq-item {
+  margin-bottom: 1.5rem;
+}
+
+/* CTA box */
+.guide-cta {
+  margin-top: 3rem;
+  padding: 1.75rem 2rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+}
+
+.guide-cta p {
+  margin-bottom: 1rem;
+  color: var(--fg);
+}
+
+.guide-cta-link {
+  display: inline-block;
+  background: var(--color-green-9);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.6rem 1.25rem;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.guide-cta-link:hover {
+  background: var(--color-green-10);
+}
+
+/* Related guides */
+.guide-related {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.guide-related h2 {
+  margin-top: 0;
+  font-size: 1rem;
+  color: var(--muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.guide-related ul {
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.guide-related a {
+  color: var(--color-green-11);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.guide-related a:hover {
+  text-decoration: underline;
+}
+
+/* Hub guide list */
+.guide-list {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.guide-list li {
+  border-bottom: 1px solid var(--border);
+}
+
+.guide-list a {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.25rem 0;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.guide-list a:hover strong {
+  color: var(--color-green-11);
+}
+
+.guide-list strong {
+  font-size: 1rem;
+  color: var(--fg);
+  font-weight: 600;
+  transition: color 0.15s;
+}
+
+.guide-list span {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.5;
 }

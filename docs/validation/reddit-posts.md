@@ -35,9 +35,9 @@ Usa a tua conta pessoal do Reddit (ou cria uma nova conta genérica com alguns m
 
 ---
 
-## Thread 1 — Para Contabilistas (r/contabilidade ou grupos PT)
+## Thread 1 — Para Contabilistas (r/literaciafinanceira ou grupos PT)
 
-**Subreddit alvo:** r/contabilidade (se existir e estiver ativo) ou r/portugal com flair adequado. Alternativa: grupos de Facebook de contabilistas portugueses.
+**Subreddit alvo:** r/literaciafinanceira (se existir e estiver ativo) ou r/portugal com flair adequado. Alternativa: grupos de Facebook de contabilistas portugueses.
 
 **Título do post:**
 > Contabilistas com clientes operadores TVDE — como recebem a informação dos ganhos semanais?
