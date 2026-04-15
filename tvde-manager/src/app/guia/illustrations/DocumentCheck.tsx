@@ -43,7 +43,7 @@ export function IllustrationDocumentCheck() {
         {/* Stamp label */}
         <text x="340" y="175" textAnchor="middle" fontSize="8" fill="var(--color-green-11)" fontWeight="600" fontFamily="system-ui, sans-serif">Confirmado</text>
       </svg>
-      <figcaption>Liquidação confirmada pelo condutor — registo auditável</figcaption>
+      <figcaption>Cada liquidação fica registada e confirmada — o operador tem sempre prova do que foi acordado, sem depender de mensagens ou papel</figcaption>
     </figure>
   );
 }

@@ -144,6 +144,23 @@ html[data-theme="dark"], .dark, .dark-theme {
   --green-700: var(--green-10);  /* hover / emphasis */
   --green-900: var(--green-12);  /* darkest (CTA bg, dark button) */
 
+  /* --color-green-* aliases for SVG illustrations (map to Radix scale) */
+  --color-green-1:  var(--green-1);
+  --color-green-2:  var(--green-2);
+  --color-green-3:  var(--green-3);
+  --color-green-4:  var(--green-4);
+  --color-green-5:  var(--green-5);
+  --color-green-6:  var(--green-6);
+  --color-green-7:  var(--green-7);
+  --color-green-8:  var(--green-8);
+  --color-green-9:  var(--green-9);
+  --color-green-10: var(--green-10);
+  --color-green-11: var(--green-11);
+  --color-green-12: var(--green-12);
+
+  /* --fg alias (used in guide page typography and SVGs) */
+  --fg: var(--text);
+
   --amber:     #D97706;
   --amber-100: #FEF3C7;
 

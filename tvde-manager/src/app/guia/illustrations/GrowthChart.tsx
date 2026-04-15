@@ -56,7 +56,7 @@ export function IllustrationGrowthChart() {
         {/* Title */}
         <text x="250" y="228" textAnchor="middle" fontSize="9" fill="var(--muted, #94a3b8)" fontFamily="system-ui, sans-serif">Condutores activos ao longo do tempo</text>
       </svg>
-      <figcaption>Crescimento sustentável da frota TVDE ao longo dos meses</figcaption>
+      <figcaption>Evolução real de uma frota TVDE: de 3 condutores em Janeiro a 35 em Setembro — cada passo controlado, sem perder a visão do conjunto</figcaption>
     </figure>
   );
 }
