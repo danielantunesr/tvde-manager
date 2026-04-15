@@ -8,6 +8,14 @@ export interface GuideFaq {
   a: string;
 }
 
+export type IllustrationKey =
+  | "csv-table"
+  | "settlement"
+  | "phone-chat"
+  | "fleet"
+  | "growth-chart"
+  | "document-check";
+
 export interface Guide {
   slug: string;
   title: string;
@@ -17,6 +25,8 @@ export interface Guide {
   sections: GuideSection[];
   faq: GuideFaq[];
   relatedSlugs: string[];
+  /** 2-3 illustration keys; shown after sections at indices 0, 2, and 4 */
+  illustrations: [IllustrationKey, IllustrationKey, IllustrationKey?];
 }
 
 export const guides: Guide[] = [
@@ -73,6 +83,7 @@ export const guides: Guide[] = [
       "exportar-csv-bolt-portugal",
       "disputas-pagamentos-condutores",
     ],
+    illustrations: ["settlement", "csv-table", "document-check"],
   },
   {
     slug: "exportar-csv-uber-portugal",
@@ -123,6 +134,7 @@ export const guides: Guide[] = [
       "liquidacao-semanal-condutores-tvde",
       "gestao-frota-tvde-portugal",
     ],
+    illustrations: ["csv-table", "document-check"],
   },
   {
     slug: "exportar-csv-bolt-portugal",
@@ -173,6 +185,7 @@ export const guides: Guide[] = [
       "liquidacao-semanal-condutores-tvde",
       "custos-operacionais-frota-tvde",
     ],
+    illustrations: ["csv-table", "phone-chat"],
   },
   {
     slug: "gestao-frota-tvde-portugal",
@@ -223,6 +236,7 @@ export const guides: Guide[] = [
       "obrigacoes-legais-operador-tvde",
       "escalar-frota-tvde",
     ],
+    illustrations: ["fleet", "document-check", "growth-chart"],
   },
   {
     slug: "custos-operacionais-frota-tvde",
@@ -273,6 +287,7 @@ export const guides: Guide[] = [
       "gestao-frota-tvde-portugal",
       "disputas-pagamentos-condutores",
     ],
+    illustrations: ["settlement", "fleet"],
   },
   {
     slug: "comunicacao-condutores-whatsapp",
@@ -323,6 +338,7 @@ export const guides: Guide[] = [
       "disputas-pagamentos-condutores",
       "gestao-frota-tvde-portugal",
     ],
+    illustrations: ["phone-chat", "document-check"],
   },
   {
     slug: "uber-vs-bolt-operadores-tvde",
@@ -373,6 +389,7 @@ export const guides: Guide[] = [
       "exportar-csv-bolt-portugal",
       "gestao-frota-tvde-portugal",
     ],
+    illustrations: ["csv-table", "fleet"],
   },
   {
     slug: "escalar-frota-tvde",
@@ -423,6 +440,7 @@ export const guides: Guide[] = [
       "obrigacoes-legais-operador-tvde",
       "custos-operacionais-frota-tvde",
     ],
+    illustrations: ["fleet", "growth-chart", "document-check"],
   },
   {
     slug: "obrigacoes-legais-operador-tvde",
@@ -473,6 +491,7 @@ export const guides: Guide[] = [
       "escalar-frota-tvde",
       "comunicacao-condutores-whatsapp",
     ],
+    illustrations: ["document-check", "fleet"],
   },
   {
     slug: "disputas-pagamentos-condutores",
@@ -523,5 +542,6 @@ export const guides: Guide[] = [
       "comunicacao-condutores-whatsapp",
       "custos-operacionais-frota-tvde",
     ],
+    illustrations: ["phone-chat", "settlement", "document-check"],
   },
 ];

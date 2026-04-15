@@ -1,6 +1,23 @@
-import { guides } from "../data/guides";
+import { guides, type IllustrationKey } from "../data/guides";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { IllustrationCsvTable } from "../illustrations/CsvTable";
+import { IllustrationSettlement } from "../illustrations/Settlement";
+import { IllustrationPhoneChat } from "../illustrations/PhoneChat";
+import { IllustrationFleet } from "../illustrations/Fleet";
+import { IllustrationGrowthChart } from "../illustrations/GrowthChart";
+import { IllustrationDocumentCheck } from "../illustrations/DocumentCheck";
+
+function Illustration({ id }: { id: IllustrationKey }) {
+  switch (id) {
+    case "csv-table":      return <IllustrationCsvTable />;
+    case "settlement":     return <IllustrationSettlement />;
+    case "phone-chat":     return <IllustrationPhoneChat />;
+    case "fleet":          return <IllustrationFleet />;
+    case "growth-chart":   return <IllustrationGrowthChart />;
+    case "document-check": return <IllustrationDocumentCheck />;
+  }
+}
 
 export async function generateStaticParams() {
   return guides.map((g) => ({ slug: g.slug }));
@@ -55,6 +72,13 @@ export default async function GuidePage({
     url: `https://tvdemanager.pt/guia/${guide.slug}`,
   };
 
+  // Illustration placement: show illus[0] after section 0, illus[1] after section 2, illus[2] after section 4
+  const illusAt = new Map<number, IllustrationKey>([
+    [0, guide.illustrations[0]],
+    [2, guide.illustrations[1]],
+    ...(guide.illustrations[2] ? ([[4, guide.illustrations[2]]] as [number, IllustrationKey][]) : []),
+  ]);
+
   return (
     <>
       <script
@@ -76,12 +100,15 @@ export default async function GuidePage({
             <p className="guide-intro">{guide.intro}</p>
 
             {guide.sections.map((section, i) => (
-              <section key={i}>
-                <h2>{section.heading}</h2>
-                {section.body.split("\n\n").map((para, j) => (
-                  <p key={j}>{para}</p>
-                ))}
-              </section>
+              <>
+                <section key={i}>
+                  <h2>{section.heading}</h2>
+                  {section.body.split("\n\n").map((para, j) => (
+                    <p key={j}>{para}</p>
+                  ))}
+                </section>
+                {illusAt.has(i) && <Illustration key={`illus-${i}`} id={illusAt.get(i)!} />}
+              </>
             ))}
 
             <section className="guide-faq">
