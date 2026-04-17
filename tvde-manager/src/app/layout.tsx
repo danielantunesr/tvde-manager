@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
-import { Outfit } from "next/font/google";
-import { ThemeProvider } from "@/providers/ThemeProvider";
-import "./globals.css";
+import './globals.css'
+
+import { Outfit } from 'next/font/google'
+
+import { ThemeProvider } from '@/providers/ThemeProvider'
+import { Analytics } from '@vercel/analytics/next'
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -123,6 +126,7 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning>
         <ThemeProvider>{children}</ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
