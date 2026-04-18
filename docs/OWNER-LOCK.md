@@ -1,6 +1,6 @@
 # 🔐 OWNER-LOCK Convention
 
-**This document defines the `[OWNER-LOCK]` system for the TVDE Manager project.**
+**This document defines the `[OWNER-LOCK]` system for the Gestor de Frota project.**
 
 ---
 

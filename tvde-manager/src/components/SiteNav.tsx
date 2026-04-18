@@ -1,6 +1,6 @@
 "use client";
 
-import { useTheme } from "@/providers/ThemeProvider";
+import { useTheme } from '@/providers/ThemeProvider'
 
 function SunIcon() {
   return (
@@ -24,7 +24,7 @@ export function SiteNav() {
   return (
     <nav>
       <a href="/" className="logo">
-        TVDE<span>Manager</span>
+        Gestor de <span>Frota</span>
       </a>
       <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
         <button

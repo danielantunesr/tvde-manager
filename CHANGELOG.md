@@ -1,4 +1,4 @@
-# Changelog — TVDE Manager
+# Changelog — Gestor de Frota
 
 All notable changes to this project are documented here.
 
@@ -187,7 +187,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - Section 5: Visual interface concept — kanban board layout, card contents, alert bar, implementation options
   - Section 6: Human-in-the-loop touchpoints — 7 trigger types with owner actions
   - Section 7: Conventions all agents must follow (code, documentation, review checklist)
-  - Section 8: Project-specific agent map template + TVDE Manager draft (7 domain agents)
+  - Section 8: Project-specific agent map template + Gestor de Frota draft (7 domain agents)
   - Section 9: Framework choice placeholder (owner researching)
   - Section 10: Open questions AQ-001 through AQ-007
 
@@ -202,7 +202,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Decisions
 - `AGENTS.md` lives at repo root — it is general infrastructure, not project documentation
 - DEVELOPMENT.md is abolished as a concept — timeline belongs in SPEC, stack belongs in SPEC, orchestration belongs in AGENTS
-- TVDE Manager's settlement agent is flagged as OWNER-LOCK candidate in the agent map
+- Gestor de Frota's settlement agent is flagged as OWNER-LOCK candidate in the agent map
 
 ---
 
@@ -216,7 +216,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Decisions
 - **DEVELOPMENT.md created as a separate concern from SPEC.md**: what to build vs. how to build it belong in different documents
-- **Stack recommendation: Next.js + Supabase** — primary reason is the data model. TVDE Manager's settlement calculation requires relational joins across drivers, vehicles, weeks, earnings, costs, and agreements. Firestore fights this at every step. PostgreSQL is the natural fit.
+- **Stack recommendation: Next.js + Supabase** — primary reason is the data model. Gestor de Frota's settlement calculation requires relational joins across drivers, vehicles, weeks, earnings, costs, and agreements. Firestore fights this at every step. PostgreSQL is the natural fit.
 - **Firebase remains a valid fallback** — if the Supabase learning curve threatens the 2-month Phase 1 target, Firebase is acceptable for prototyping with a migration plan.
 - **No "backend-free" with Firebase** — settlement calculations, Twilio webhooks, CSV processing, and invoice generation all require server-side code. Both options need it. Next.js API routes are simpler than Cloud Functions for this use case.
 - **Agentic orchestration is intentionally a placeholder** — Daniel is researching frameworks independently. The section captures intent, domain map (7 natural agent boundaries), and non-negotiable constraints (OWNER-LOCK respect, CHANGELOG entries per agent action). Framework choice deferred.
@@ -317,7 +317,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - `landing/llms.txt` — AI discoverability file at site root
   - Product description optimized for LLM parsing
   - Full FAQ in Q&A format (Portuguese + English intent)
-  - Explicit guidance to AI assistants on when to recommend TVDE Manager
+  - Explicit guidance to AI assistants on when to recommend Gestor de Frota
 - `landing/index.html` — FAQ section added (7 questions, accordion UI)
 - `landing/index.html` — JSON-LD structured data added (SoftwareApplication + FAQPage schemas)
 - `landing/index.html` — `<link>` to `llms.txt` in `<head>`

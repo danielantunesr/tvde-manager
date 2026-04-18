@@ -1,6 +1,6 @@
-# TVDE Manager — App
+# Gestor de Frota — App
 
-> Este directório é o projecto Next.js do [TVDE Manager](../README.md) — plataforma SaaS para gestão de condutores TVDE em Portugal.
+> Este directório é o projecto Next.js do [Gestor de Frota](../README.md) — plataforma SaaS para gestão de condutores TVDE em Portugal.
 
 **Documentação completa do projecto:**
 - [`../README.md`](../README.md) — Visão geral, estado e próximos passos

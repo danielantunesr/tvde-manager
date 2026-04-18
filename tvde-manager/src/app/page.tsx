@@ -23,7 +23,7 @@ function MoonIcon() {
 
 const faqs = [
   {
-    q: "O TVDE Manager funciona com Uber e Bolt?",
+    q: "O Gestor de Frota funciona com Uber e Bolt?",
     a: "Sim. Importamos os ficheiros CSV exportados pelo Uber Portugal e pelo Bolt Portugal. O sistema deteta o formato automaticamente — não precisas de configurar nada.",
   },
   {
@@ -36,7 +36,7 @@ const faqs = [
   },
   {
     q: "Preciso de instalar alguma aplicação?",
-    a: "Não. O TVDE Manager é uma aplicação web — funciona diretamente no browser, no computador ou no telemóvel. Os condutores também não precisam de instalar nada.",
+    a: "Não. O Gestor de Frota é uma aplicação web — funciona diretamente no browser, no computador ou no telemóvel. Os condutores também não precisam de instalar nada.",
   },
   {
     q: "E se um condutor recusar ou não responder?",
@@ -122,7 +122,7 @@ export default function LandingPage() {
       {/* NAV */}
       <nav>
         <a href="#" className="logo">
-          TVDE<span>Manager</span>
+          Gestor de <span>Frota</span>
         </a>
         <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
           <button
@@ -200,7 +200,7 @@ export default function LandingPage() {
             <div className="phone-header">
               <div className="phone-avatar">🚗</div>
               <div>
-                <div className="phone-contact">TVDE Manager</div>
+                <div className="phone-contact">Gestor de Frota</div>
                 <div className="phone-status">● Online</div>
               </div>
             </div>
@@ -421,8 +421,8 @@ export default function LandingPage() {
 
       {/* FOOTER */}
       <footer>
-        <a href="#" className="logo">TVDE<span>Manager</span></a>
-        <span className="footer-note">© 2026 TVDE Manager · Portugal · Em desenvolvimento</span>
+        <a href="#" className="logo">Gestor de <span>Frota</span></a>
+        <span className="footer-note">© 2026 Gestor de Frota · Portugal · Em desenvolvimento</span>
       </footer>
     </>
   );

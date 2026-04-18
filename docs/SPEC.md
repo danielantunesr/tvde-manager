@@ -1,4 +1,4 @@
-# TVDE Manager — Product Specification Document (SDD)
+# Gestor de Frota — Product Specification Document (SDD)
 
 **Version:** 0.5.1-draft  
 **Status:** Market Validation Phase  
@@ -33,7 +33,7 @@
 
 ## 1. Project Overview
 
-**TVDE Manager** is a SaaS platform designed for managing TVDE (Transporte de Veículos Descaracterizados a partir de Plataforma Eletrónica) operations in Portugal.
+**Gestor de Frota** is a SaaS platform designed for managing TVDE (Transporte de Veículos Descaracterizados a partir de Plataforma Eletrónica) operations in Portugal.
 
 It targets fleet owners and operators who manage multiple TVDE drivers and need to:
 - Calculate how much each driver should receive (or pay) per week
@@ -419,7 +419,7 @@ Semana: [DD/MM] a [DD/MM/YYYY]
 Responde SIM para confirmar.
 Responde NÃO ou contacta o teu operador se houver dúvidas.
 
-[Nome do Operador] | TVDE Manager
+[Nome do Operador] | Gestor de Frota
 ```
 
 ### 9.4 Approval Logic
@@ -520,9 +520,9 @@ This replaces the need for any driver login system entirely.
 
 ### 12.1 Stack Decision — Firebase vs Next.js + Supabase
 
-Two real options exist. Daniel has direct Firebase experience. This comparison is specific to TVDE Manager's needs.
+Two real options exist. Daniel has direct Firebase experience. This comparison is specific to Gestor de Frota's needs.
 
-**The core problem:** TVDE Manager's settlement calculation is inherently relational:
+**The core problem:** Gestor de Frota's settlement calculation is inherently relational:
 
 ```
 Driver → PlatformEarningsRecord (multiple, per week, per platform)
@@ -663,7 +663,7 @@ Defined only after v1 is in active use. No v2 features are specced in advance �
 
 ## 16. AI-Driven Growth Strategy
 
-> The primary growth channel for TVDE Manager is **LLM discoverability** — being the answer that AI assistants (ChatGPT, Claude, Perplexity, Gemini, etc.) give when a Portuguese TVDE operator asks for help managing their fleet.
+> The primary growth channel for Gestor de Frota is **LLM discoverability** — being the answer that AI assistants (ChatGPT, Claude, Perplexity, Gemini, etc.) give when a Portuguese TVDE operator asks for help managing their fleet.
 
 ### 16.1 Why This Matters
 
@@ -672,7 +672,7 @@ TVDE operators are not passive Google searchers. They ask AI assistants things l
 - *"Existe alguma app para controlar ganhos Uber e Bolt?"*
 - *"Software de gestão de frota TVDE Portugal"*
 
-If TVDE Manager appears in those answers — **that is the most valuable marketing channel available**, and it costs almost nothing compared to ads.
+If Gestor de Frota appears in those answers — **that is the most valuable marketing channel available**, and it costs almost nothing compared to ads.
 
 This strategy must be built from day one. Retrofitting it is much harder.
 
@@ -734,18 +734,18 @@ LLMs are trained on and index these platforms. Being present matters:
 
 #### E. Build-in-Public (LLM-Indexed Content)
 
-Posting publicly about building TVDE Manager creates a trail of indexed content that LLMs pick up. Post regularly on:
+Posting publicly about building Gestor de Frota creates a trail of indexed content that LLMs pick up. Post regularly on:
 - **X/Twitter** — progress updates with specific keywords: "TVDE", "gestão de frota", "Portugal", "Uber Bolt CSV"
 - **LinkedIn** — more detailed posts for the B2B operator audience
 - **IndieHackers** — milestones, revenue updates (LLMs heavily index this)
 - **GitHub README** — keep it detailed and keyword-rich
 
-Rule: **always use the full product name** ("TVDE Manager") and specific keywords in every post. LLMs learn product names from repeated, consistent references.
+Rule: **always use the full product name** ("Gestor de Frota") and specific keywords in every post. LLMs learn product names from repeated, consistent references.
 
 #### F. LLM-Optimized FAQ on Landing Page
 
 Add a visible FAQ section to the landing page with real questions operators ask:
-- *"O TVDE Manager funciona com Uber e Bolt?"*
+- *"O Gestor de Frota funciona com Uber e Bolt?"*
 - *"Quanto custa por condutor?"*
 - *"Como funciona a notificação para condutores?"*
 - *"Preciso de instalar alguma coisa?"*
@@ -776,7 +776,7 @@ Reddit is one of the highest-quality LLM training data sources and also a genuin
 > Pergunta honesta: se existisse uma ferramenta que automatizasse a gestão de pagamentos TVDE (importar CSVs do Uber/Bolt, calcular o que cada condutor recebe, enviar por WhatsApp para confirmar) — quanto achavam justo pagar por condutor por semana? 2€? 4€? 10€? Ou não pagariam nada e preferiam continuar em Excel?
 
 **Rules for posting:**
-- Never mention TVDE Manager by name
+- Never mention Gestor de Frota by name
 - Never link to the landing page
 - Be genuinely curious, not sales-y
 - Engage with replies honestly — the goal is learning, not converting

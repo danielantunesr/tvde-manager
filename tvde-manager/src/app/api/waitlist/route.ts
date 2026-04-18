@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
     const { error } = await resend.emails.send({
       from: "onboarding@resend.dev",
       to: notificationEmail,
-      subject: "[TVDE Manager] Nova inscrição na waitlist",
+      subject: "[Gestor de Frota] Nova inscrição na waitlist",
       text: `Email: ${email}\nData: ${timestamp}`,
     });
 

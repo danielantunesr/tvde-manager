@@ -1,4 +1,4 @@
-# 🚗 TVDE Manager — Portugal
+# 🚗 Gestor de Frota — Portugal
 
 > Plataforma SaaS para gestão de condutores TVDE em Portugal. Importa CSVs do Uber e Bolt, calcula liquidações semanais por condutor, e envia notificações automáticas via WhatsApp.
 

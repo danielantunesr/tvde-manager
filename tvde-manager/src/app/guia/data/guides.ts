@@ -33,7 +33,7 @@ export const guides: Guide[] = [
   {
     slug: "liquidacao-semanal-condutores-tvde",
     title: "Como calcular a liquidação semanal de condutores TVDE",
-    seoTitle: "Liquidação Semanal Condutores TVDE: Guia Completo | TVDE Manager",
+    seoTitle: "Liquidação Semanal Condutores TVDE: Guia Completo | Gestor de Frota",
     metaDescription:
       "Aprende a calcular corretamente a liquidação semanal dos teus condutores TVDE. Ganhos brutos, deduções, valor acordado e acerto final — passo a passo.",
     intro:
@@ -88,7 +88,7 @@ export const guides: Guide[] = [
   {
     slug: "exportar-csv-uber-portugal",
     title: "Como exportar os dados de ganhos do Uber Portugal (CSV)",
-    seoTitle: "Exportar CSV de Ganhos Uber Portugal: Guia Passo a Passo | TVDE Manager",
+    seoTitle: "Exportar CSV de Ganhos Uber Portugal: Guia Passo a Passo | Gestor de Frota",
     metaDescription:
       "Guia passo a passo para exportar o ficheiro CSV de ganhos semanais do Uber Portugal. Onde encontrar, como descarregar e o que significam as colunas.",
     intro:
@@ -139,7 +139,7 @@ export const guides: Guide[] = [
   {
     slug: "exportar-csv-bolt-portugal",
     title: "Como exportar os dados de ganhos do Bolt Portugal (CSV)",
-    seoTitle: "Exportar CSV de Ganhos Bolt Portugal: Guia Passo a Passo | TVDE Manager",
+    seoTitle: "Exportar CSV de Ganhos Bolt Portugal: Guia Passo a Passo | Gestor de Frota",
     metaDescription:
       "Guia passo a passo para exportar o ficheiro CSV de ganhos semanais do Bolt Portugal. Portal Bolt Business, onde encontrar os relatórios e como ler as colunas.",
     intro:
@@ -190,7 +190,7 @@ export const guides: Guide[] = [
   {
     slug: "gestao-frota-tvde-portugal",
     title: "Guia completo de gestão de frota TVDE em Portugal",
-    seoTitle: "Gestão de Frota TVDE Portugal: Guia Completo para Operadores | TVDE Manager",
+    seoTitle: "Gestão de Frota TVDE Portugal: Guia Completo para Operadores | Gestor de Frota",
     metaDescription:
       "Tudo o que um operador TVDE em Portugal precisa de saber: licenciamento, gestão semanal, condutores, plataformas e ferramentas. Guia prático e direto.",
     intro:
@@ -241,7 +241,7 @@ export const guides: Guide[] = [
   {
     slug: "custos-operacionais-frota-tvde",
     title: "Como controlar os custos operacionais de uma frota TVDE",
-    seoTitle: "Custos Operacionais Frota TVDE: Como Registar e Controlar | TVDE Manager",
+    seoTitle: "Custos Operacionais Frota TVDE: Como Registar e Controlar | Gestor de Frota",
     metaDescription:
       "Aprende a registar e controlar os custos operacionais de uma frota TVDE: combustível, portagens, manutenção, seguros e como imputá-los por condutor.",
     intro:
@@ -292,7 +292,7 @@ export const guides: Guide[] = [
   {
     slug: "comunicacao-condutores-whatsapp",
     title: "Como comunicar com condutores TVDE via WhatsApp",
-    seoTitle: "Comunicação com Condutores TVDE via WhatsApp: Guia Prático | TVDE Manager",
+    seoTitle: "Comunicação com Condutores TVDE via WhatsApp: Guia Prático | Gestor de Frota",
     metaDescription:
       "Usa o WhatsApp para notificar condutores TVDE da liquidação semanal e receber confirmação. Templates de mensagem, boas práticas e como gerir respostas.",
     intro:
@@ -343,7 +343,7 @@ export const guides: Guide[] = [
   {
     slug: "uber-vs-bolt-operadores-tvde",
     title: "Uber vs Bolt: o que muda para o operador TVDE em Portugal",
-    seoTitle: "Uber vs Bolt para Operadores TVDE Portugal: Diferenças e Comparação | TVDE Manager",
+    seoTitle: "Uber vs Bolt para Operadores TVDE Portugal: Diferenças e Comparação | Gestor de Frota",
     metaDescription:
       "Comparação prática entre Uber e Bolt para operadores TVDE em Portugal: comissões, relatórios, suporte, pagamentos e o que muda na gestão diária da frota.",
     intro:
@@ -394,7 +394,7 @@ export const guides: Guide[] = [
   {
     slug: "escalar-frota-tvde",
     title: "Como escalar uma frota TVDE de 1 para 50 condutores",
-    seoTitle: "Escalar Frota TVDE: De 1 para 50 Condutores em Portugal | TVDE Manager",
+    seoTitle: "Escalar Frota TVDE: De 1 para 50 Condutores em Portugal | Gestor de Frota",
     metaDescription:
       "Guia prático para operadores TVDE que querem crescer a frota. O que muda em cada fase de crescimento, que processos documentar e quando automatizar.",
     intro:
@@ -445,7 +445,7 @@ export const guides: Guide[] = [
   {
     slug: "obrigacoes-legais-operador-tvde",
     title: "Obrigações legais do operador TVDE em Portugal",
-    seoTitle: "Obrigações Legais Operador TVDE Portugal: Licença, RGPD e Contratos | TVDE Manager",
+    seoTitle: "Obrigações Legais Operador TVDE Portugal: Licença, RGPD e Contratos | Gestor de Frota",
     metaDescription:
       "Resumo das principais obrigações legais do operador TVDE em Portugal: licença IMT, requisitos de veículos, contratos com condutores, RGPD e fiscalidade.",
     intro:
@@ -496,7 +496,7 @@ export const guides: Guide[] = [
   {
     slug: "disputas-pagamentos-condutores",
     title: "Como gerir disputas de pagamento com condutores TVDE",
-    seoTitle: "Disputas de Pagamento Condutores TVDE: Como Prevenir e Resolver | TVDE Manager",
+    seoTitle: "Disputas de Pagamento Condutores TVDE: Como Prevenir e Resolver | Gestor de Frota",
     metaDescription:
       "Guia prático para prevenir e resolver disputas de pagamento com condutores TVDE. Documentação, comunicação e o processo de resolução passo a passo.",
     intro:

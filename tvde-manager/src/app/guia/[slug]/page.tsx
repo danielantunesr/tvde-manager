@@ -39,7 +39,7 @@ export async function generateMetadata({
       title: guide.seoTitle,
       description: guide.metaDescription,
       url: `https://tvdemanager.pt/guia/${guide.slug}`,
-      siteName: "TVDE Manager",
+      siteName: "Gestor de Frota",
       locale: "pt_PT",
       type: "article",
     },
@@ -63,10 +63,10 @@ export default async function GuidePage({
     headline: guide.title,
     description: guide.metaDescription,
     inLanguage: "pt-PT",
-    author: { "@type": "Organization", name: "TVDE Manager" },
+    author: { "@type": "Organization", name: "Gestor de Frota" },
     publisher: {
       "@type": "Organization",
-      name: "TVDE Manager",
+      name: "Gestor de Frota",
       url: "https://tvdemanager.pt",
     },
     url: `https://tvdemanager.pt/guia/${guide.slug}`,
@@ -88,7 +88,7 @@ export default async function GuidePage({
       <main className="guide-page">
         <div className="guide-container">
           <nav className="guide-breadcrumb" aria-label="Breadcrumb">
-            <a href="/">TVDE Manager</a>
+            <a href="/">Gestor de Frota</a>
             <span aria-hidden="true">→</span>
             <a href="/guia">Guias</a>
             <span aria-hidden="true">→</span>
@@ -124,7 +124,7 @@ export default async function GuidePage({
 
           <div className="guide-cta">
             <p>
-              Quer automatizar este processo? O TVDE Manager trata de tudo —
+              Quer automatizar este processo? O Gestor de Frota trata de tudo —
               importação de CSV, cálculo da liquidação e notificação ao
               condutor.
             </p>

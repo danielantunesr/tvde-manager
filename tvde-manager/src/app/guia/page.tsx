@@ -2,16 +2,16 @@ import { guides } from "./data/guides";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Guias de Gestão de Frota TVDE | TVDE Manager",
+  title: "Guias de Gestão de Frota TVDE | Gestor de Frota",
   description:
     "Guias práticos para operadores TVDE em Portugal: liquidação semanal, exportação de CSV, custos operacionais, comunicação com condutores e muito mais.",
   alternates: { canonical: "https://tvdemanager.pt/guia" },
   openGraph: {
-    title: "Guias de Gestão de Frota TVDE | TVDE Manager",
+    title: "Guias de Gestão de Frota TVDE | Gestor de Frota",
     description:
       "Guias práticos para operadores TVDE em Portugal: liquidação semanal, exportação de CSV, custos operacionais, comunicação com condutores e muito mais.",
     url: "https://tvdemanager.pt/guia",
-    siteName: "TVDE Manager",
+    siteName: "Gestor de Frota",
     locale: "pt_PT",
     type: "website",
   },
@@ -22,7 +22,7 @@ export default function GuiaHub() {
     <main className="guide-page">
       <div className="guide-container">
         <nav className="guide-breadcrumb" aria-label="Breadcrumb">
-          <a href="/">TVDE Manager</a>
+          <a href="/">Gestor de Frota</a>
           <span aria-hidden="true">→</span>
           <span>Guias</span>
         </nav>

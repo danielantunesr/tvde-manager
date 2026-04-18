@@ -3,7 +3,7 @@
 **Author:** Daniel  
 **Version:** 0.1.0-draft  
 **Status:** Design phase — framework not yet chosen  
-**Scope:** General — applies to any software project, not specific to TVDE Manager  
+**Scope:** General — applies to any software project, not specific to Gestor de Frota  
 
 ---
 
@@ -176,7 +176,7 @@ A dashboard that shows the current state of all agents in real time. The owner c
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│  PROJECT: TVDE Manager  │  Week of Apr 14  │  Active agents: 3      │
+│  PROJECT: Gestor de Frota  │  Week of Apr 14  │  Active agents: 3      │
 ├──────────────┬───────────────────┬──────────────────┬───────────────┤
 │   BACKLOG    │   IN PROGRESS     │   REVIEW         │   DONE        │
 ├──────────────┼───────────────────┼──────────────────┼───────────────┤
@@ -300,10 +300,10 @@ Agents:
   ...
 ```
 
-### TVDE Manager — Agent Map (draft)
+### Gestor de Frota — Agent Map (draft)
 
 ```
-Project: TVDE Manager
+Project: Gestor de Frota
 Orchestration framework: Claude Code — native Agent tool (see Section 9)
 
 Agents:

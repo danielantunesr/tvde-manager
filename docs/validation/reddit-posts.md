@@ -12,7 +12,7 @@ Lê isto antes de publicar qualquer post.
 Usa a tua conta pessoal do Reddit (ou cria uma nova conta genérica com alguns meses de histórico antes de publicar — contas novas têm karma zero e os posts podem ser removidos automaticamente por alguns subreddits). Não cries uma conta com o nome do produto.
 
 **Regras absolutas:**
-- Não menciones o TVDE Manager nem nenhum produto.
+- Não menciones o Gestor de Frota nem nenhum produto.
 - Não incluas links para nenhuma landing page ou website.
 - Se alguém perguntar diretamente "estás a construir algo?" — sê honesto: "Sim, estou a explorar se faz sentido construir uma ferramenta para isto. Ainda estou a perceber se o problema é real."
 - Não tentes converter ninguém. O objetivo é aprender, não vender.

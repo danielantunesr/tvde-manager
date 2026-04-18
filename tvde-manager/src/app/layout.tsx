@@ -13,7 +13,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "TVDE Manager — Gestão de condutores TVDE em Portugal",
+  title: "Gestor de Frota — Gestão de condutores TVDE em Portugal",
   description:
     "A plataforma mais acessível para gerir condutores TVDE em Portugal. Importa CSVs do Uber e Bolt, calcula pagamentos semanais e notifica os condutores automaticamente.",
 };
@@ -23,7 +23,7 @@ const jsonLd = {
   "@graph": [
     {
       "@type": "SoftwareApplication",
-      name: "TVDE Manager",
+      name: "Gestor de Frota",
       description:
         "Plataforma SaaS para gestão de condutores TVDE em Portugal. Importa CSVs do Uber e Bolt, calcula liquidações semanais por condutor e envia notificações automáticas via WhatsApp.",
       applicationCategory: "BusinessApplication",
@@ -53,15 +53,15 @@ const jsonLd = {
       mainEntity: [
         {
           "@type": "Question",
-          name: "O TVDE Manager funciona com Uber e Bolt?",
+          name: "O Gestor de Frota funciona com Uber e Bolt?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Sim. O TVDE Manager importa os ficheiros CSV exportados pelo Uber Portugal e pelo Bolt Portugal e deteta automaticamente o formato de cada ficheiro.",
+            text: "Sim. O Gestor de Frota importa os ficheiros CSV exportados pelo Uber Portugal e pelo Bolt Portugal e deteta automaticamente o formato de cada ficheiro.",
           },
         },
         {
           "@type": "Question",
-          name: "Quanto custa o TVDE Manager?",
+          name: "Quanto custa o Gestor de Frota?",
           acceptedAnswer: {
             "@type": "Answer",
             text: "4 euros por condutor por semana, aproximadamente 16 euros por condutor por mês. Só pagas pelos condutores ativos. Sem taxas de instalação nem contratos.",
@@ -80,7 +80,7 @@ const jsonLd = {
           name: "Preciso de instalar alguma coisa?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Não. O TVDE Manager é uma aplicação web que funciona em qualquer browser, no computador ou no telemóvel.",
+            text: "Não. O Gestor de Frota é uma aplicação web que funciona em qualquer browser, no computador ou no telemóvel.",
           },
         },
         {
