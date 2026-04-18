@@ -5,6 +5,7 @@ import { Outfit } from 'next/font/google'
 
 import { ThemeProvider } from '@/providers/ThemeProvider'
 import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -127,6 +128,7 @@ export default function RootLayout({
       <body suppressHydrationWarning>
         <ThemeProvider>{children}</ThemeProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
